@@ -1,7 +1,10 @@
+from typing import Optional
+
+
 class Node:
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, val):
+        self.val = val
         self.left = self.right = None
 
 
@@ -34,10 +37,10 @@ class Tree:
             self.root = obj
             return obj
 
-        s, p, fl_find = self.__find(self.root, None, obj.data)
+        s, p, fl_find = self.__find(self.root, None, obj.val)
 
         if not fl_find and s:
-            if obj.data < s.data:
+            if obj.val < s.val:
                 s.left = obj
             else:
                 s.right = obj
@@ -54,10 +57,19 @@ class Tree:
 
     # def del_node(self, key):  # https://www.youtube.com/watch?v=mdkwm5FUpFs
 
+    def same_tree(self, p: Optional[Node], q: Optional[Node]) -> bool:
+        """ leetcode 100 problem"""
+
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        return p.val == q.val and self.same_tree(p.left, q.left) and self.same_tree(p.right, q.right)
 
 
 v = [8, 10, 7, 9, 13, 16, 2, 11, 98, 27 ]
 t = Tree()
 for x in v:
     t.append(Node(x))
+
 
