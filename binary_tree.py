@@ -19,14 +19,14 @@ class Tree:
         if node is None:
             return None, parent, False
 
-        if value == node.data:
+        if value == node.val:
             return node, parent, True
 
-        if value < node.data:
+        if value < node.val:
             if node.left:
                 return self.__find(node.left, node, value)
 
-        if value > node.data:
+        if value > node.val:
             if node.right:
                 return self.__find(node.right, node, value)
 
@@ -66,10 +66,26 @@ class Tree:
             return False
         return p.val == q.val and self.same_tree(p.left, q.left) and self.same_tree(p.right, q.right)
 
+    def get_max_deep_tree(self, root: Optional[Node]) -> int:
+        """ Leetcode 104. Maximum Depth of Binary Tree """
 
-v = [8, 10, 7, 9, 13, 16, 2, 11, 98, 27 ]
-t = Tree()
-for x in v:
-    t.append(Node(x))
+        if root is None:
+            return 0
+
+        left_deep = self.get_max_deep_tree(root.left)
+        right_deep = self.get_max_deep_tree(root.left)
+
+        return max(left_deep, right_deep) + 1
+
+
+if __name__ == '__main__':
+    v = [8, 10, 7, 9, 13, 16, 2, 11, 98, 27, 21, 25, 77, 20, 98, 1, 3]
+    t = Tree()
+    for x in v:
+        t.append(Node(x))
+
+    print(t.get_max_deep_tree(t.root))
+
+
 
 
